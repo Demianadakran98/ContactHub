@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Contact Hub - Smart Contact Manager</title>
+
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- SweetAlert2 -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MAIN APP
+    ====================================================== -->
+
+    <main class="app-container">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="header">
+
+
+            <div class="brand">
+
+                <div class="brand-icon">
+
+                    <i class="bi bi-person-vcard-fill"></i>
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h1>
+                        Contact<span>Hub</span>
+                    </h1>
+
+                    <p>
+                        Smart Contact Manager
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="header-actions">
+
+
+                <button
+                    id="addContactBtn"
+                    class="add-contact-btn"
+                    type="button"
+                >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    <span>
+                        Add Contact
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="header-icon-btn"
+                    type="button"
+                >
+
+                    <i class="bi bi-bell-fill"></i>
+
+                </button>
+
+
+                <button
+                    class="header-icon-btn"
+                    type="button"
+                >
+
+                    <i class="bi bi-gear-fill"></i>
+
+                </button>
+
+
+                <div class="profile-avatar">
+
+                    <img
+                        src="avatar-4.jpg"
+                        alt="Profile"
+                    >
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section class="stats-section">
+
+
+            <!-- TOTAL -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon total-icon">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        TOTAL
+                    </span>
+
+                    <strong id="totalCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FAVORITES -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon favorite-icon">
+
+                    <i class="bi bi-star-fill"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        FAVORITES
+                    </span>
+
+                    <strong id="favoriteCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EMERGENCY -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon emergency-icon">
+
+                    <i class="bi bi-heart-pulse-fill"></i>
+
+                </div>
+
+
+                <div class="stat-content">
+
+                    <span>
+                        EMERGENCY
+                    </span>
+
+                    <strong id="emergencyCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- ================= LEFT ================= -->
+
+            <div class="main-column">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        All Contacts
+                    </h2>
+
+                    <p id="contactsSubtitle">
+                        Manage and organize your 0 contacts
+                    </p>
+
+                </div>
+
+
+
+                <!-- SEARCH -->
+
+                <div class="search-box">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search by name, phone, or email..."
+                    >
+
+                </div>
+
+
+
+                <!-- CONTACTS -->
+
+                <div
+                    id="contactsContainer"
+                    class="contacts-container"
+                ></div>
+
+
+            </div>
+
+
+
+            <!-- ================= RIGHT ================= -->
+
+            <aside class="side-column">
+
+
+                <!-- FAVORITES -->
+
+                <div class="side-card favorites-card">
+
+
+                    <div class="side-card-header">
+
+
+                        <div class="side-card-icon favorite-icon">
+
+                            <i class="bi bi-star-fill"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Favorites
+                            </h3>
+
+                            <p>
+                                Quick access to starred contacts
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="favoritesContainer"
+                        class="side-card-body"
+                    ></div>
+
+
+                </div>
+
+
+
+                <!-- EMERGENCY -->
+
+                <div class="side-card emergency-card">
+
+
+                    <div class="side-card-header">
+
+
+                        <div class="side-card-icon emergency-icon">
+
+                            <i class="bi bi-heart-pulse-fill"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Emergency
+                            </h3>
+
+                            <p>
+                                Important contacts for urgent calls
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="emergencyContainer"
+                        class="side-card-body"
+                    ></div>
+
+
+                </div>
+
+
+            </aside>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         ADD / UPDATE CONTACT MODAL
+    ====================================================== -->
+
+    <div
+        id="contactModal"
+        class="contact-modal"
+    >
+
+
+        <!-- Overlay -->
+
+        <div
+            id="modalOverlay"
+            class="modal-overlay"
+        ></div>
+
+
+
+        <!-- Modal Box -->
+
+        <div class="modal-box">
+
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Add New Contact
+                    </h2>
+
+                    <p>
+                        Add a new contact to your contact book
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeModalBtn"
+                    class="modal-close"
+                    type="button"
+                >
+
+                    <i class="bi bi-x-lg"></i>
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- Form -->
+
+            <form
+                id="contactForm"
+                novalidate
+            >
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="contactName">
+                        Full Name
+                    </label>
+
+                    <input
+                        id="contactName"
+                        type="text"
+                        placeholder="Enter full name"
+                    >
+
+                    <small
+                        id="nameError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="contactPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        id="contactPhone"
+                        type="tel"
+                        placeholder="Enter phone number"
+                    >
+
+                    <small
+                        id="phoneError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="contactEmail">
+                        Email
+                    </label>
+
+                    <input
+                        id="contactEmail"
+                        type="email"
+                        placeholder="example@email.com"
+                    >
+
+                    <small
+                        id="emailError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+
+                <!-- Address -->
+
+                <div class="form-group">
+
+                    <label for="contactAddress">
+                        Address
+                    </label>
+
+                    <input
+                        id="contactAddress"
+                        type="text"
+                        placeholder="Enter address"
+                    >
+
+                </div>
+
+
+
+                <!-- Group -->
+
+                <div class="form-group">
+
+                    <label for="contactGroup">
+                        Group
+                    </label>
+
+                    <select id="contactGroup">
+
+                        <option value="">
+                            Select group
+                        </option>
+
+                        <option value="Family">
+                            Family
+                        </option>
+
+                        <option value="Friends">
+                            Friends
+                        </option>
+
+                        <option value="Work">
+                            Work
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Notes -->
+
+                <div class="form-group">
+
+                    <label for="contactNotes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="contactNotes"
+                        rows="3"
+                        placeholder="Add notes..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- Favorite / Emergency -->
+
+                <div class="checkbox-row">
+
+
+                    <label>
+
+                        <input
+                            id="contactFavorite"
+                            type="checkbox"
+                        >
+
+                        <span>
+
+                            <i class="bi bi-star-fill"></i>
+
+                            Favorite
+
+                        </span>
+
+                    </label>
+
+
+
+                    <label>
+
+                        <input
+                            id="contactEmergency"
+                            type="checkbox"
+                        >
+
+                        <span>
+
+                            <i class="bi bi-heart-pulse-fill"></i>
+
+                            Emergency
+
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- Buttons -->
+
+                <div class="modal-actions">
+
+
+                    <button
+                        id="cancelBtn"
+                        type="button"
+                        class="cancel-btn"
+                    >
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        id="saveContactBtn"
+                        type="submit"
+                        class="save-btn"
+                    >
+
+                        <i class="bi bi-check-lg"></i>
+
+                        <span id="saveBtnText">
+                            Save Contact
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="main.js"></script>
+
+
+</body>
+
+</html>
